@@ -1,5 +1,5 @@
 import streamlit as st
-import bese64
+import base64
 # CONFIG
 st.set_page_config(page_title="Perfil", layout="wide")
 
