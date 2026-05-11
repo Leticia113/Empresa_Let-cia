@@ -1,8 +1,80 @@
 import streamlit as st
+import bese64
+# CONFIG
+st.set_page_config(page_title="Perfil", layout="wide")
 
-st.image("logo coke.png")
-st.write("Letícia 🌸")
-st.image("Cerejeira.png")
-st.write("É uma gigante multinacional de bebidas, reconhecida mundialmente.")
-st.image("zap.avif")
-st.link_button("Acessar", "https://wa.me/+55883981954690")
+# FUNÇÃO base64
+def get_base64_image(path):
+    with open(path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+img_base64 = get_base64_image("logo coke.png")
+zap_base64 = get_base64_image("zap.avif")
+
+# TOPO (imagem clicável)
+col1, col2, col3 = st.columns([1,2,1])
+
+with col2:
+    st.markdown(f"""
+        <div style="text-align: center; margin-bottom: 50px;">
+            <a href="https://www.coca-cola.com/br/pt" target="_blank">
+                <img src="data:image/png;base64,{img_base64}"
+                     width="320"
+                     style="border-radius:12px;">
+            </a>
+        </div>
+    """, unsafe_allow_html=True)
+
+# LAYOUT PRINCIPAL
+col_left, col_right = st.columns([3,1])
+
+with col_left:
+    st.markdown("""
+    <div style='margin-bottom:30px; font-size:30px;'>
+        <b>Letícia 🌸</b>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # subcolunas
+    subcol1, subcol2 = st.columns([1,4])
+
+    # IMAGEM (centralizada verticalmente)
+    with subcol1:
+        st.markdown("""
+        <div style="
+            display: flex;
+            align-items: center;
+            height: 100%;
+        ">
+        """, unsafe_allow_html=True)
+
+        st.image("Cerejeira.png", width=800)
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    # TEXTO
+    with subcol2:
+        st.markdown("""
+        <div style="
+            text-align: justify;
+            font-size: 20px;
+            line-height: 2.0;
+            width: 100%;
+            max-width: none;
+        ">
+            <b>Sobre o site da Coca cola:<br>
+            O site oficial da Coca-Cola Brasil é coca-cola.com.br, onde você encontra informações sobre produtos, sustentabilidade, campanhas e promoções. 
+        </div>
+        """, unsafe_allow_html=True)
+
+with col_right:
+    st.empty()
+
+# 🔥 NOVO BLOCO (WhatsApp clicável no final)
+st.markdown(f"""
+    <div style="text-align: center; margin-top: 10px;">
+        <a href="https://wa.me/+55883981954690" target="_blank">
+            <img src="data:image/avif;base64,{zap_base64}" width="100">
+        </a>
+    </div>
+""", unsafe_allow_html=True)
